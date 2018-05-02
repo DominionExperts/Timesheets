@@ -11,22 +11,7 @@ class HomePage extends AutobindComponent {
             <h1>Homepage</h1>
             <p>Hier kan informatie staan ivm verlof etc</p>
             <br />
-            <p>TODO Lijstje non-technical</p>
-            <ul>
-                <li>Connection String in Secret steken</li>
-                <li>Project op Github van DE zetten</li>
-            </ul>
-            <p>TODO Lijstje Technical</p>
-            <ul>
-                <li>.Net Core 2.0 => 2.1 upgrade</li>
-                <li>Builders gebruiken in Service</li>
-                <li>Recup vorig jaar berekenen</li>
-                <li>Timesheets module helemaal</li>
-                <li>Verlof aanvragen</li>
-                <li>Admin module met overzicht aanvragen</li>
-                <li>...</li>
-                <li>Security implementeren</li>
-            </ul>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam cursus condimentum neque, non porttitor mi fermentum nec. Nulla gravida sapien vitae nunc aliquam sagittis. Nunc mattis condimentum massa ut suscipit. Etiam ac felis arcu. Integer iaculis nisl justo, sed sagittis mi congue in. Proin tincidunt tincidunt sagittis. Vestibulum rutrum massa mauris, et volutpat ex finibus gravida. Nulla eu massa in nulla viverra condimentum. Morbi vestibulum est dolor, et suscipit nibh efficitur nec. Nam ornare, velit nec iaculis consectetur, orci lorem mattis ante, sagittis commodo velit tortor in quam. Sed ornare velit felis, ut tempus mauris consequat vel. Curabitur vel fermentum turpis, in tempor tortor. Vivamus turpis ipsum, elementum ut blandit in, viverra non diam.</p>
         </div>;
     }
 }
