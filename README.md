@@ -14,3 +14,8 @@
   * Lijst met aanvragen
   * Aanvragen goedkeuren / afkeuren
   * Eventueel kalender met alle verloven op
+4. CI
+  * Validate build status
+  * Run tests
+  * Automated pull-request handling
+
