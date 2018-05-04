@@ -13,6 +13,7 @@ namespace DE.Timesheets.Service
             services.AddTransient<ITimesheetService, TimesheetService>();
 
             services.AddTransient<IVerlofBuilder, VerlofBuilder>();
+            services.AddTransient<ITimesheetBuilder, TimesheetBuilder>();
 
             BindProcesses.Execute(services);
         }

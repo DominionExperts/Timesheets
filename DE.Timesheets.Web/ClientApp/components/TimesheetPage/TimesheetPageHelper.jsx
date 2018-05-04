@@ -1,5 +1,6 @@
 ﻿import { showToastrError, showToastrSuccess, showToastrWarning } from "../../util/toastr";
 import UserApi from "../../api/UserApi";
+import TimesheetApi from "../../api/TimesheetApi";
 import * as toastrMessages from "../../constants/toastrConstants";
 import update from 'immutability-helper';
 
@@ -37,10 +38,6 @@ export default class TimesheetPageHelper {
         if (!event.target.value) return;
         const userId = event.target.value;
 
-        this.context.setState({
-            loadingCount: this.context.state.loadingCount + 1
-        });
-
         this.changeDropDown(userId, this.context.state.selectedMonth);
     }
 
@@ -48,33 +45,45 @@ export default class TimesheetPageHelper {
         if (!event.target.value) return;
         const month = event.target.value;
 
-        this.context.setState({
-            loadingCount: this.context.state.loadingCount + 1
-        });
-
         this.changeDropDown(this.context.state.selectedUser, month);
     }
 
     changeDropDown(userId, month) {
-        //VerlofApi.get(userId)
-        //    .then((response) => {
-        //        if (response.status && response.status === 200) {
-        //            const loadCount = this.context.state.loadingCount;
+        if (!userId && !month) return;
+        if (!userId) {
+            this.context.setState({
+                selectedMonth: month,
+            });
+            return;
+        } else if (!month) {
+            this.context.setState({
+                selectedUser: userId
+            });
+            return;
+        }
 
-        //            this.context.setState({
-        //                verlof: response.data,
-        //                loadingCount: loadCount - 1,
-        //                selectedUser: userId
-        //            });
-        //        } else {
-        //            this.handleError(toastrMessages.VERLOF_ERROR);
-        //        }
-        //    })
-        //    .catch((error) => {
-        //        this.handleError(toastrMessages.VERLOF_ERROR);
-        //    });
+        this.context.setState({
+            loadingCount: this.context.state.loadingCount + 1
+        });
 
-        this.handleError(toastrMessages.TIMESHEET_ERROR);
+        TimesheetApi.get(userId, month)
+            .then((response) => {
+                if (response.status && response.status === 200) {
+                    const loadCount = this.context.state.loadingCount;
+
+                    this.context.setState({
+                        timesheet: response.data,
+                        loadingCount: loadCount - 1,
+                        selectedUser: userId,
+                        selectedMonth: month
+                    });
+                } else {
+                    this.handleError(toastrMessages.TIMESHEET_ERROR);
+                }
+            })
+            .catch((error) => {
+                this.handleError(toastrMessages.TIMESHEET_ERROR);
+            });
     }
 
 
