@@ -21,30 +21,25 @@ namespace DE.Timesheets.Process
             _factory = factory;
         }
 
-        public IEnumerable<VerlofHistoriek> GetHistoriek(Guid userId)
+        public IEnumerable<VerlofHistoriek> GetHistoriek(Guid userId, int jaar)
         {
-            var jaar = DateTime.Now.Year;
             return _verlofHistoriekRepository.GetByUserId(userId, jaar);
         }
 
 
-        public IEnumerable<VerlofHistoriek> GetHistoriekByMonth(Guid userId, int maand)
+        public IEnumerable<VerlofHistoriek> GetHistoriekByMonth(Guid userId, int maand, int jaar)
         {
-            var jaar = DateTime.Now.Year;
             return _verlofHistoriekRepository.GetByUserIdAndMonth(userId, maand, jaar);
         }
 
-        public IEnumerable<Feestdag> GetWettelijkeFeestdagen()
+        public IEnumerable<Feestdag> GetWettelijkeFeestdagen(int jaar)
         {
-            var jaar = DateTime.Now.Year;
             var helper = new FeestdagenHelper(jaar);
             return helper.WettelijkeFeestdagen();
         }
 
-        public IEnumerable<VerlofTeller> GetTellers(Guid userId)
+        public IEnumerable<VerlofTeller> GetTellers(Guid userId, int jaar)
         {
-            var jaar = DateTime.Now.Year;
-
             var historiek = _verlofHistoriekRepository.GetByUserId(userId, jaar);
 
             var tellers = new List<VerlofTeller>(VerlofType.List.Count());

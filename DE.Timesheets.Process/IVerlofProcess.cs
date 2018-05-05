@@ -8,9 +8,9 @@ namespace DE.Timesheets.Process
 {
     public interface IVerlofProcess
     {
-        IEnumerable<VerlofHistoriek> GetHistoriek(Guid userId);
-        IEnumerable<VerlofHistoriek> GetHistoriekByMonth(Guid userId, int maand);
-        IEnumerable<VerlofTeller> GetTellers(Guid userId);
-        IEnumerable<Feestdag> GetWettelijkeFeestdagen();
+        IEnumerable<VerlofHistoriek> GetHistoriek(Guid userId, int jaar);
+        IEnumerable<VerlofHistoriek> GetHistoriekByMonth(Guid userId, int maand, int jaar);
+        IEnumerable<VerlofTeller> GetTellers(Guid userId, int jaar);
+        IEnumerable<Feestdag> GetWettelijkeFeestdagen(int jaar);
     }
 }

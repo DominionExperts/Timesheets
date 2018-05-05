@@ -19,7 +19,8 @@ namespace DE.Timesheets.Web.Controllers
         [HttpGet("{userId:guid}")]
         public VerlofModel Get(Guid userId)
         {
-            return _service.Get(userId);
+            var jaar = DateTime.Now.Year;
+            return _service.Get(userId, jaar);
         }
     }
 }

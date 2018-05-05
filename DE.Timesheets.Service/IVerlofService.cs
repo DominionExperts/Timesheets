@@ -5,6 +5,6 @@ namespace DE.Timesheets.Service
 {
     public interface IVerlofService
     {
-        VerlofModel Get(Guid userId);
+        VerlofModel Get(Guid userId, int jaar);
     }
 }

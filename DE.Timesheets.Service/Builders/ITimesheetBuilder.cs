@@ -7,6 +7,6 @@ namespace DE.Timesheets.Service.Builders
 {
     public interface ITimesheetBuilder
     {
-        TimesheetModel Build(IEnumerable<TimesheetDag> timesheetDagen, IEnumerable<VerlofHistoriek> historiek, IEnumerable<Feestdag> feestdagen);
+        TimesheetModel Build(int maand, int jaar, TimesheetDag[] timesheetDagen, VerlofHistoriek[] historiek, Feestdag[] feestdagen);
     }
 }

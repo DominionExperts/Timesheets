@@ -11,18 +11,21 @@ import TimesheetForm from "./TimesheetForm";
 class TimesheetPage extends AutobindComponent {
     constructor(props) {
         super(props);
-
+        
         this.state = {
             users: [],
             maanden: [],
             timesheet: {
+                userId: null,
+                maand: null,
+                maandText: null,
+                jaar: null,
+                dagen: []
             },
             loadingCount: 0,
             selectedUser: "",
             selectedMonth: "",
         };
-
-        //TODO Months
 
         this.pageHelper = new TimesheetPageHelper(this);
     }

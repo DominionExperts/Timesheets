@@ -16,10 +16,10 @@ namespace DE.Timesheets.Service
             _builder = builder;
         }
 
-        public VerlofModel Get(Guid userId)
+        public VerlofModel Get(Guid userId, int jaar)
         {
-            var historiek = _process.GetHistoriek(userId);
-            var tellers = _process.GetTellers(userId);
+            var historiek = _process.GetHistoriek(userId, jaar);
+            var tellers = _process.GetTellers(userId, jaar);
 
             return _builder.Build(userId, historiek, tellers);
         }

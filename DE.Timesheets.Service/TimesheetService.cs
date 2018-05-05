@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Linq;
 using DE.Timesheets.Process;
-using DE.Timesheets.Process.Helpers;
 using DE.Timesheets.Service.Builders;
 using DE.Timesheets.Service.Models;
 
@@ -19,13 +19,13 @@ namespace DE.Timesheets.Service
             _builder = builder;
         }
 
-        public TimesheetModel Get(Guid userId, int maand)
+        public TimesheetModel Get(Guid userId, int maand, int jaar)
         {
-            var savedTimesheetDagen = _timesheetProcess.Get(userId, maand);
-            var maandHistoriek = _verlofProcess.GetHistoriekByMonth(userId, maand);
-            var feestdagen = _verlofProcess.GetWettelijkeFeestdagen();
+            var savedTimesheetDagen = _timesheetProcess.Get(userId, maand).ToArray();
+            var maandHistoriek = _verlofProcess.GetHistoriekByMonth(userId, maand, jaar).ToArray();
+            var feestdagen = _verlofProcess.GetWettelijkeFeestdagen(jaar).ToArray();
 
-            return _builder.Build(savedTimesheetDagen, maandHistoriek, feestdagen);
+            return _builder.Build(maand, jaar, savedTimesheetDagen, maandHistoriek, feestdagen);
         }
     }
 }
