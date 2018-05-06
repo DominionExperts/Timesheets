@@ -8,7 +8,8 @@ namespace DE.Timesheets.Service.Models
         public Guid Id { get; set; }
 
         public DateTime Datum { get; set; }
-        public string DagText => $"{_format.GetShortestDayName(Datum.DayOfWeek)} {Datum.Day}";
+        public string DagText => _format.GetShortestDayName(Datum.DayOfWeek);
+        public int DagNr => Datum.Day;
         public int WeekNr => GetIso8601WeekOfYear(Datum);
 
         public decimal Uren { get; set; }

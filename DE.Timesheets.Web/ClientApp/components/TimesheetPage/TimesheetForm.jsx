@@ -1,71 +1,49 @@
 ﻿import React from "react";
 import PropTypes from "prop-types";
-import BootstrapTable from "react-bootstrap-table-next";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+
+/*
+var ReactBsTable  = require('react-bootstrap-table');
+var BootstrapTable = ReactBsTable.BootstrapTable;
+var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
+ */
 
 const TimesheetForm = (props) => {
-    const columns = [
-        {
-            dataField: "id",
-            text: "Id",
-            hidden: true
-        }, {
-            dataField: "datum",
-            text: "Datum",
-            hidden: true
-        }, {
-            dataField: "isFeestdag",
-            text: "Feestdag",
-            hidden: true
-        }, {
-            dataField: "isWeekend",
-            text: "Weekend",
-            hidden: true
-        }, {
-            dataField: "weekNr",
-            text: "WeekNr"
-        }, {
-            dataField: "dagText",
-            text: "Dag"
-        }, {
-            dataField: "uren",
-            text: "Uren"
-        }, {
-            dataField: "overuren",
-            text: "Overuren"
-        }, {
-            dataField: "verlof",
-            text: "Verlof"
-        }, {
-            dataField: "wachtvergoeding",
-            text: "Wachtvergoeding"
-        }, {
-            dataField: "opmerkingen",
-            text: "Opmerkingen"
-        }];
-
-    const rowStyle = (row, rowIndex) => {
-        let color = "";
-
+    const rowStyleClass = (row, rowIndex) => {
         if (row.isFeestdag) {
-            color = "LightSalmon";
+            return "timesheet-feestdag";
         } else if (row.isWeekend) {
-            color = "LightGrey";
-        };       
-
-        return { backgroundColor: color };
+            return "timesheet-weekend";
+        };
     };
 
     const tableProps = {
         keyField: "id",
         data: props.timesheet.dagen,
-        columns: columns,
-        rowStyle: rowStyle
+        trClassName: rowStyleClass
     }
+
+    const table = props.timesheet.dagen.length > 0
+        ? <BootstrapTable {...tableProps}>
+            <TableHeaderColumn dataField="id" row="0" rowSpan="2" hidden>Id</TableHeaderColumn>
+            <TableHeaderColumn dataField="isFeestdag" row="0" rowSpan="2" hidden>Feestdag</TableHeaderColumn>
+            <TableHeaderColumn dataField="isWeekend" row="0" rowSpan="2" hidden>Weekend</TableHeaderColumn>
+            <TableHeaderColumn dataField="weekNr" row="0" rowSpan="2" width="60px" headerAlign="center">Week</TableHeaderColumn>
+            <TableHeaderColumn row="0" colSpan="2" dataSort csvHeader="Dag" headerAlign="center">Dag</TableHeaderColumn>
+            <TableHeaderColumn dataField="dagText" row="1" width="50px" headerAlign="center">D</TableHeaderColumn>
+            <TableHeaderColumn dataField="dagNr" row="1" width="50px" headerAlign="center">#</TableHeaderColumn>
+            <TableHeaderColumn dataField="uren" row="0" rowSpan="2" headerAlign="center">Uren</TableHeaderColumn>
+            <TableHeaderColumn dataField="overuren" row="0" rowSpan="2" headerAlign="center">Overuren</TableHeaderColumn>
+            <TableHeaderColumn dataField="wachtvergoeding" row="0" rowSpan="2" headerAlign="center">Wachtvergoeding</TableHeaderColumn>
+            <TableHeaderColumn dataField="verlof" row="0" rowSpan="2" headerAlign="center">Verlof</TableHeaderColumn>
+            <TableHeaderColumn dataField="opmerkingen" row="0" rowSpan="2" headerAlign="center">Opmerkingen</TableHeaderColumn>
+        </BootstrapTable>
+        : null;
 
     return (
         <div className="col-md-12">
             <h2>{props.timesheet.maandText}</h2>
-            <BootstrapTable {...tableProps} />
+            {table}
         </div>
     );
 };

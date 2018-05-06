@@ -3,6 +3,7 @@ import UserApi from "../../api/UserApi";
 import TimesheetApi from "../../api/TimesheetApi";
 import * as toastrMessages from "../../constants/toastrConstants";
 import update from 'immutability-helper';
+import moment from "moment";
 
 export default class TimesheetPageHelper {
     constructor(context) {
@@ -71,8 +72,10 @@ export default class TimesheetPageHelper {
                 if (response.status && response.status === 200) {
                     const loadCount = this.context.state.loadingCount;
 
+                    const newTimesheet = this.transformUren(response.data);
+
                     this.context.setState({
-                        timesheet: response.data,
+                        timesheet: newTimesheet,
                         loadingCount: loadCount - 1,
                         selectedUser: userId,
                         selectedMonth: month
@@ -86,6 +89,32 @@ export default class TimesheetPageHelper {
             });
     }
 
+    transformUren(timesheet) {
+        if (timesheet && timesheet.dagen && timesheet.dagen.length > 0) {
+            const dagen = timesheet.dagen.map((dag, index) => {
+                return {
+                    id: dag.id,
+                    datum: dag.datum,
+                    dagText: dag.dagText,
+                    dagNr: dag.dagNr,
+                    weekNr: dag.weekNr,
+                    uren: dag.uren,
+                    urenTijd: moment.duration(dag.uren).asHours(),
+                    overuren: dag.overuren,
+                    overurenTijd: moment.duration(dag.overuren).asHours(),
+                    wachtvergoeding: dag.wachtvergoeding,
+                    opmerkingen: dag.opmerkingen,
+                    isFeestdag: dag.isFeestdag,
+                    isWeekend: dag.isWeekend,
+                    verlof: dag.verlof
+            }
+            });
+
+            timesheet.dagen = dagen;
+        }
+
+        return timesheet;
+    }
 
     handleError(error) {
         const loadCount = this.context.state.loadingCount;

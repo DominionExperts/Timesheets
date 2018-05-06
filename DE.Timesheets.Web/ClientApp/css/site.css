@@ -64,6 +64,9 @@
         text-overflow: ellipsis;
     }
 
+    /* Toegevoegd wat hier boven staat mag potentieel weg */
+    /* TODO dit verhuizen naar scss */
+
     .paddingLayout {
         padding-top: 60px;
     }
@@ -71,5 +74,13 @@
     .logo {
         height: 40px;
         padding-top: 10px;
+    }
+
+    .timesheet-weekend {
+        background-color: lightgray;
+    }
+
+    .timesheet-feestdag {
+        background-color: lightsalmon;
     }
 }

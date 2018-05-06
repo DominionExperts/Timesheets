@@ -1,6 +1,7 @@
 import "./css/site.css";
 import "bootstrap";
 import "../node_modules/toastr/build/toastr.min.css";
+import "../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 
 import React from "react";
 import { render } from "react-dom";
