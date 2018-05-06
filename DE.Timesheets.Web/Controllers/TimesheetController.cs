@@ -16,7 +16,7 @@ namespace DE.Timesheets.Web.Controllers
             _service = service;
         }
 
-        [HttpGet("{id:Guid}/month/{maand:int}")]
+        [HttpGet("{userId:Guid}/month/{maand:int}")]
         public TimesheetModel Get(Guid userId, int maand)
         {
             var jaar = DateTime.Now.Year;

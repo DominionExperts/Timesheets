@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using DE.Timesheets.Domain.Entities;
+using DE.Timesheets.Domain.References;
 using DE.Timesheets.Process.Helpers;
 using DE.Timesheets.Service.Models;
 
@@ -13,11 +14,12 @@ namespace DE.Timesheets.Service.Builders
         public TimesheetModel Build(int maand, int jaar, TimesheetDag[] timesheetDagen, VerlofHistoriek[] historiek, Feestdag[] feestdagen)
         {
             var model = new TimesheetModel(new CultureInfo("nl-BE"), maand, jaar);
+            var verlof = historiek.Where(h => h.Status != VerlofStatus.Afgkeurd.Id && h.Status != VerlofStatus.Geannuleerd.Id).ToArray();
 
             foreach (var date in AllDatesInMonth(jaar, maand))
             {
                 var existingdag = timesheetDagen.SingleOrDefault(d => d.Datum.Date == date);
-                var histo = historiek.Where(h => h.Datum.Date == date).Sum();
+                var histo = verlof.Where(h => h.Datum.Date == date).Sum();
                 var feestdag = feestdagen.SingleOrDefault(f => f.Datum.Date == date);
 
                 if (existingdag == null)
