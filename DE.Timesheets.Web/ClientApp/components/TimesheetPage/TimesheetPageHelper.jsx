@@ -72,7 +72,7 @@ export default class TimesheetPageHelper {
                 if (response.status && response.status === 200) {
                     const loadCount = this.context.state.loadingCount;
 
-                    const newTimesheet = this.transformUren(response.data);
+                    const newTimesheet = this.transformDagen(response.data);
 
                     this.context.setState({
                         timesheet: newTimesheet,
@@ -89,7 +89,7 @@ export default class TimesheetPageHelper {
             });
     }
 
-    transformUren(timesheet) {
+    transformDagen(timesheet) {
         if (timesheet && timesheet.dagen && timesheet.dagen.length > 0) {
             const dagen = timesheet.dagen.map((dag, index) => {
                 return {
@@ -99,7 +99,7 @@ export default class TimesheetPageHelper {
                     dagNr: dag.dagNr,
                     weekNr: dag.weekNr,
                     uren: dag.uren,
-                    urenTijd: moment.duration(dag.uren).asHours(),
+                    urenTijd: this.urenToTijd(dag.uren),
                     overuren: dag.overuren,
                     overurenTijd: moment.duration(dag.overuren).asHours(),
                     wachtvergoeding: dag.wachtvergoeding,
@@ -114,6 +114,10 @@ export default class TimesheetPageHelper {
         }
 
         return timesheet;
+    }
+
+    urenToTijd(uren) {
+        return moment().startOf("day").add(uren, "hours").format("HH:mm");
     }
 
     handleError(error) {

@@ -23,6 +23,11 @@ const TimesheetForm = (props) => {
         trClassName: rowStyleClass
     }
 
+    const border = {
+        borderRight: "2px solid"
+    };
+    //tdStyle={{ whiteSpace: 'normal' }} 
+
     const table = props.timesheet.dagen.length > 0
         ? <BootstrapTable {...tableProps}>
             <TableHeaderColumn dataField="id" row="0" rowSpan="2" hidden>Id</TableHeaderColumn>
@@ -30,9 +35,11 @@ const TimesheetForm = (props) => {
             <TableHeaderColumn dataField="isWeekend" row="0" rowSpan="2" hidden>Weekend</TableHeaderColumn>
             <TableHeaderColumn dataField="weekNr" row="0" rowSpan="2" width="60px" headerAlign="center">Week</TableHeaderColumn>
             <TableHeaderColumn row="0" colSpan="2" dataSort csvHeader="Dag" headerAlign="center">Dag</TableHeaderColumn>
-            <TableHeaderColumn dataField="dagText" row="1" width="50px" headerAlign="center">D</TableHeaderColumn>
-            <TableHeaderColumn dataField="dagNr" row="1" width="50px" headerAlign="center">#</TableHeaderColumn>
-            <TableHeaderColumn dataField="uren" row="0" rowSpan="2" headerAlign="center">Uren</TableHeaderColumn>
+            <TableHeaderColumn dataField="dagText" row="1" width="50px" headerAlign="center"></TableHeaderColumn>
+            <TableHeaderColumn dataField="dagNr" row="1" width="50px" headerAlign="center"></TableHeaderColumn>
+            <TableHeaderColumn row="0" colSpan="2" dataSort csvHeader="Uren" headerAlign="center">Uren</TableHeaderColumn>
+            <TableHeaderColumn dataField="uren" row="1" width="70px" headerAlign="center">Getal</TableHeaderColumn>
+            <TableHeaderColumn dataField="urenTijd" row="1" width="70px" headerAlign="center">Tijd</TableHeaderColumn>
             <TableHeaderColumn dataField="overuren" row="0" rowSpan="2" headerAlign="center">Overuren</TableHeaderColumn>
             <TableHeaderColumn dataField="wachtvergoeding" row="0" rowSpan="2" headerAlign="center">Wachtvergoeding</TableHeaderColumn>
             <TableHeaderColumn dataField="verlof" row="0" rowSpan="2" headerAlign="center">Verlof</TableHeaderColumn>
