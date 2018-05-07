@@ -5,6 +5,8 @@ mono: none
 dotnet: 2.0.0
 script:
  - dotnet restore
+ - cd DE.Timesheets.Web
  - npm install
+ - cd ..
  - dotnet build
 
