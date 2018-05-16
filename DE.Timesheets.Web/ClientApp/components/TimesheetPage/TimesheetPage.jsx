@@ -11,7 +11,7 @@ import TimesheetForm from "./TimesheetForm";
 class TimesheetPage extends AutobindComponent {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             users: [],
             maanden: [],
@@ -40,6 +40,10 @@ class TimesheetPage extends AutobindComponent {
 
     handleOnChangeMonth(event) {
         this.pageHelper.changeMonth(event);
+    }
+
+    handleOnBeforeSaveCell(row, cellName, cellValue, callback, indexes) {
+        this.pageHelper.beforeSaveCell(row, cellName, cellValue, callback, indexes);
     }
 
     render() {
@@ -82,8 +86,10 @@ class TimesheetPage extends AutobindComponent {
             size: 3
         };
 
+        //http://allenfang.github.io/react-bootstrap-table/example.html#remote
         const timesheetProps = {
-            timesheet: this.state.timesheet
+            timesheet: this.state.timesheet,
+            beforeSaveCell: this.handleOnBeforeSaveCell,
         };
 
         const page = this.state.loadingCount === 0 ?
@@ -99,9 +105,9 @@ class TimesheetPage extends AutobindComponent {
             </div> : <Loader />;
 
         return <div>
-                   <h1>Timesheet</h1>
-                   {page}
-               </div>;
+            <h1>Timesheet</h1>
+            {page}
+        </div>;
     }
 }
 

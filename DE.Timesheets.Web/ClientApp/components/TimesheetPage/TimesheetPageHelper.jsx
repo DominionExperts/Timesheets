@@ -101,13 +101,13 @@ export default class TimesheetPageHelper {
                     uren: dag.uren,
                     urenTijd: this.urenToTijd(dag.uren),
                     overuren: dag.overuren,
-                    overurenTijd: moment.duration(dag.overuren).asHours(),
+                    overurenTijd: this.urenToTijd(dag.overuren),
                     wachtvergoeding: dag.wachtvergoeding,
                     opmerkingen: dag.opmerkingen,
                     isFeestdag: dag.isFeestdag,
                     isWeekend: dag.isWeekend,
                     verlof: dag.verlof
-            }
+                }
             });
 
             timesheet.dagen = dagen;
@@ -116,8 +116,56 @@ export default class TimesheetPageHelper {
         return timesheet;
     }
 
+    beforeSaveCell(row, cellName, cellValue, callback, indexes) {
+        switch (cellName) {
+            case "uren":
+                row.urenTijd = this.convertUren(cellValue);
+                break;
+            case "urenTijd":
+                row.uren = this.convertTijd(cellValue);
+                break;
+            case "overuren":
+                row.overurenTijd = this.convertUren(cellValue);
+                break;
+            case "overurenTijd":
+                row.overuren = this.convertTijd(cellValue);
+                break;
+            default:
+                break;
+        }
+        
+        return this.updateTimesheetDag(row);
+    }
+
+    updateTimesheetDag(dag) {
+        TimesheetApi.update(this.context.state.selectedUser, dag)
+            .then((response) => {
+                if (response.status && response.status === 200) {
+                    showToastrSuccess(toastrMessages.TIMESHEET_UPDATE_SUCCESS);
+                    return true;
+                } else {
+                    showToastrError(toastrMessages.TIMESHEET_UPDATE_ERROR);
+                    return false;
+                }
+            })
+            .catch((error) => {
+                showToastrError(toastrMessages.TIMESHEET_UPDATE_ERROR);
+                return false;
+            });
+        return true;
+    }
+
+    convertUren(value) {
+        return moment().startOf("day").add(value, "hours").format("HH:mm");
+    }
+
+    convertTijd(value) {
+        return moment.duration(value).asHours();
+    }
+
     urenToTijd(uren) {
-        return moment().startOf("day").add(uren, "hours").format("HH:mm");
+        if (isNaN(uren)) return uren;
+        return this.convertUren(uren);
     }
 
     handleError(error) {
