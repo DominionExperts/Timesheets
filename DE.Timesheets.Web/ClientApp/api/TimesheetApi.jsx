@@ -8,7 +8,12 @@ export default class TimesheetApi {
             }
         });
     }
-    static update(userId, timesheetdag) {
-        return Axios.put("api/timesheet/" + userId, timesheetdag);
+    static update(timesheetdag) {
+        return Axios.put("api/timesheet", timesheetdag,
+            {
+                headers: {
+                    'accept': "application/json"
+                }
+            });
     }
 }

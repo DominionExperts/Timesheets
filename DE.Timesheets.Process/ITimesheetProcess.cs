@@ -6,6 +6,7 @@ namespace DE.Timesheets.Process
 {
     public interface ITimesheetProcess
     {
-        IEnumerable<TimesheetDag> Get(Guid userId, int maand);
+        IEnumerable<TimesheetDag> Get(Guid userId, int maand, int jaar);
+        void Update(TimesheetDag dag);
     }
 }

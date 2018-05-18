@@ -3,9 +3,7 @@
 ## TODO Lijstje
 
 1. Timesheets
-  * Front
-  * Builder aanmaken
-  * Saven van Timesheet
+  * Cosmetica (tab tussen velden lijkt niet te werken)
 2. Verlof
   * Verlof aanvraag 
   * Mogelijkheid om verlof te annuleren

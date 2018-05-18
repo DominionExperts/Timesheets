@@ -7,5 +7,6 @@ namespace DE.Timesheets.Data
     public interface ITimesheetDagRepository
     {
         IEnumerable<TimesheetDag> GetByUserIdAndMonth(Guid userId, int maand, int jaar);
+        void UpdateOrCreate(TimesheetDag dag);
     }
 }

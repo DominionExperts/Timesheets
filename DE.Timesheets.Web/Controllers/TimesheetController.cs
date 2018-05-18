@@ -23,7 +23,12 @@ namespace DE.Timesheets.Web.Controllers
             return _service.Get(userId, maand, jaar);
         }
 
-        //TODO POST
+        [HttpPut("")]
+        public void Update([FromBody]SaveTimesheetDagModel dag)
+        {
+            var jaar = DateTime.Now.Year;
+            _service.Update(dag);
 
+        }        
     }
 }

@@ -14,11 +14,14 @@ namespace DE.Timesheets.Process
             _repository = repository;
         }
 
-        public IEnumerable<TimesheetDag> Get(Guid userId, int maand)
+        public IEnumerable<TimesheetDag> Get(Guid userId, int maand, int jaar)
         {
-            var jaar = DateTime.Now.Year;
-
             return _repository.GetByUserIdAndMonth(userId, maand, jaar);
+        }
+
+        public void Update(TimesheetDag dag)
+        {
+            _repository.UpdateOrCreate(dag);
         }
     }
 }

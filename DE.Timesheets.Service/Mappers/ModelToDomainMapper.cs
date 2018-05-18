@@ -15,5 +15,18 @@ namespace DE.Timesheets.Service.Mappers
             };
         }
 
+        public static TimesheetDag Map(SaveTimesheetDagModel dag)
+        {
+            return new TimesheetDag
+            {
+                Id = dag.Id,
+                Datum = dag.Datum,
+                UserId = dag.UserId,
+                Uren = dag.Uren,
+                Overuren = dag.Overuren,
+                Wachtvergoeding = dag.Wachtvergoeding,
+                Opmerkingen = dag.Opmerkingen
+            };
+        }
     }
 }

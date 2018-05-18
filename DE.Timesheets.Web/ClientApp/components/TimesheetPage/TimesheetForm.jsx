@@ -111,7 +111,7 @@ const TimesheetForm = (props) => {
 
 TimesheetForm.propTypes = {
     timesheet: PropTypes.array.isRequired,
-    beforeSafeCell: PropTypes.func.isRequired
+    beforeSafeCell: PropTypes.func.isRequired   
 };
 
 export default TimesheetForm;

@@ -131,39 +131,58 @@ export default class TimesheetPageHelper {
     }
 
     beforeSaveCell(row, cellName, cellValue, callback, indexes) {
+        const newRow = Object.assign({}, row);
+
         switch (cellName) {
             case "uren":
                 {
+                    newRow.uren = cellValue;
+
                     row.urenTijd = this.convertUren(cellValue);
                     row.compensatie = this.calcCompensatie(cellValue, row.isWeekend || row.isFeestdag);
                     break;
                 }
             case "urenTijd":
                 {
-                    const uren = this.convertTijd(cellValue);
-                    row.uren = uren;
+                    newRow.uren = this.convertTijd(cellValue);                    
+
+                    row.uren = newRow.uren;
                     row.compensatie = this.calcCompensatie(uren, row.isWeekend || row.isFeestdag);
                     break;
                 }
             case "overuren":
                 {
+                    newRow.overuren = cellValue;
+
                     row.overurenTijd = this.convertUren(cellValue);
                     break;
                 }
             case "overurenTijd":
                 {
-                    row.overuren = this.convertTijd(cellValue);
+                    newRow.overuren = this.convertTijd(cellValue);
+
+                    row.overuren = newRow.overuren;
                     break;
                 }
             default:
                 break;
         }
 
-        return this.updateTimesheetDag(row);
+        return this.updateTimesheetDag(this.context.state.selectedUser, newRow);
     }
 
-    updateTimesheetDag(dag) {
-        TimesheetApi.update(this.context.state.selectedUser, dag)
+    updateTimesheetDag(userId, row) {
+        const dag = {
+            id: row.id,
+            userId: userId,
+            datum: row.datum,
+            uren: row.uren,
+            overuren: row.overuren,
+            wachtvergoeding: row.wachtvergoeding,
+            opmerkingen: row.opmerkingen
+        };
+
+        TimesheetApi.update(dag)
             .then((response) => {
                 if (response.status && response.status === 200) {
                     showToastrSuccess(toastrMessages.TIMESHEET_UPDATE_SUCCESS);
