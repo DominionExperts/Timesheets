@@ -22,9 +22,7 @@ const TimesheetForm = (props) => {
         keyField: "id",
         data: props.timesheet.dagen,
         trClassName: rowStyleClass,
-        //remote: true,
-        cellEdit: cellEdit,
-        //options: { onCellEdit: props.onCellEdit }
+        cellEdit: cellEdit        
     }
 
     const numberValidator = (value) => {
@@ -44,7 +42,24 @@ const TimesheetForm = (props) => {
     };
 
     const border = (cell, row, ridx, cidx) => {
-        return { borderRight: "2px solid" };
+        return {
+            borderRight: "2px solid" 
+        };
+    };
+
+    const compensatieStyle = (cell, row, ridx, cidx) => {
+        let color = "whitesmoke";
+
+        if (row.isFeestdag) {
+            color = "lightsalmon";
+        } else if (row.isWeekend) {
+            color = "lightgray";
+        }
+
+        return {
+            backgroundColor: color,
+            borderRight: "2px solid" 
+        };
     };
 
     const edit = {
@@ -78,7 +93,9 @@ const TimesheetForm = (props) => {
             <TableHeaderColumn dataField="overuren" editable={{ validator: numberValidator }} row="1"width="70px" headerAlign="center">Getal</TableHeaderColumn>
             <TableHeaderColumn dataField="overurenTijd" editable={{ validator: timeValidator }} tdStyle={border} row="1" width="90px" headerAlign="center">Tijd</TableHeaderColumn>
 
-            <TableHeaderColumn dataField="wachtvergoeding" dataFormat={wachtFormatter}  editable={edit} width="140px" dataAlign="center" row="0" rowSpan="2" headerAlign="center">Wachtvergoeding</TableHeaderColumn>
+            <TableHeaderColumn dataField="compensatie" editable={false} tdStyle={compensatieStyle} row="0" rowSpan="2" width="100px" dataAlign="center" headerAlign="center">Compensatie</TableHeaderColumn>
+
+            <TableHeaderColumn dataField="wachtvergoeding" dataFormat={wachtFormatter} editable={edit} width="140px" dataAlign="center" row="0" rowSpan="2" headerAlign="center">Wachtvergoeding</TableHeaderColumn>
             <TableHeaderColumn dataField="verlof" row="0" editable={false} rowSpan="2" width="60px" headerAlign="center">Verlof</TableHeaderColumn>
             <TableHeaderColumn dataField="opmerkingen" row="0" rowSpan="2" headerAlign="center">Opmerkingen</TableHeaderColumn>
         </BootstrapTable>

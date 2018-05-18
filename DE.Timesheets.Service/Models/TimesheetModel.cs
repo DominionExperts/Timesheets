@@ -10,6 +10,8 @@ namespace DE.Timesheets.Service.Models
     {
         private readonly DateTimeFormatInfo _format;
 
+        public decimal DagTijd => 7.6m; //TODO Move to settings
+
         public TimesheetModel(CultureInfo culture, int maand, int jaar)
         {
             _format = culture.DateTimeFormat;
@@ -24,7 +26,7 @@ namespace DE.Timesheets.Service.Models
         public Guid UserId { get; set; }
         public int Maand { get; set; }
         public string MaandText => _format.GetMonthName(Maand);
-        public int Jaar { get; set; }
+        public int Jaar { get; set; }        
 
         public IList<TimesheetDagModel> Dagen { get; set; }
 

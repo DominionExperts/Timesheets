@@ -11,7 +11,7 @@ export default class TimesheetPageHelper {
     }
 
     init() {
-        //TODO use redux for ajax counter
+        //TODO use context for ajax counter https://www.youtube.com/watch?v=XLJN4JfniH4
         this.context.setState({
             loadingCount: 1
         });
@@ -91,6 +91,8 @@ export default class TimesheetPageHelper {
 
     transformDagen(timesheet) {
         if (timesheet && timesheet.dagen && timesheet.dagen.length > 0) {
+            this.dagTijd = timesheet.dagTijd;
+
             const dagen = timesheet.dagen.map((dag, index) => {
                 return {
                     id: dag.id,
@@ -102,6 +104,7 @@ export default class TimesheetPageHelper {
                     urenTijd: this.urenToTijd(dag.uren),
                     overuren: dag.overuren,
                     overurenTijd: this.urenToTijd(dag.overuren),
+                    compensatie: this.calcCompensatie(dag.uren, dag.isWeekend || dag.isFeestdag),
                     wachtvergoeding: dag.wachtvergoeding,
                     opmerkingen: dag.opmerkingen,
                     isFeestdag: dag.isFeestdag,
@@ -116,24 +119,46 @@ export default class TimesheetPageHelper {
         return timesheet;
     }
 
+    calcCompensatie(uren, weekendOrFeestdag) {
+        if (weekendOrFeestdag) {
+            return uren;
+        } else if (this.dagTijd) {
+            const comp = uren - this.dagTijd;
+            return Number(Math.round(comp + "e2") + "e-2");;
+        } else {
+            return 0;
+        }
+    }
+
     beforeSaveCell(row, cellName, cellValue, callback, indexes) {
         switch (cellName) {
             case "uren":
-                row.urenTijd = this.convertUren(cellValue);
-                break;
+                {
+                    row.urenTijd = this.convertUren(cellValue);
+                    row.compensatie = this.calcCompensatie(cellValue, row.isWeekend || row.isFeestdag);
+                    break;
+                }
             case "urenTijd":
-                row.uren = this.convertTijd(cellValue);
-                break;
+                {
+                    const uren = this.convertTijd(cellValue);
+                    row.uren = uren;
+                    row.compensatie = this.calcCompensatie(uren, row.isWeekend || row.isFeestdag);
+                    break;
+                }
             case "overuren":
-                row.overurenTijd = this.convertUren(cellValue);
-                break;
+                {
+                    row.overurenTijd = this.convertUren(cellValue);
+                    break;
+                }
             case "overurenTijd":
-                row.overuren = this.convertTijd(cellValue);
-                break;
+                {
+                    row.overuren = this.convertTijd(cellValue);
+                    break;
+                }
             default:
                 break;
         }
-        
+
         return this.updateTimesheetDag(row);
     }
 
