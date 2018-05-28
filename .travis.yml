@@ -8,7 +8,7 @@ script:
  - nvm install 8.11.1
  - nvm use 8.11.1
  - cd DE.Timesheets.Web
- - npm run react:16.3
  - npm install
+ - npm run react:16.3
  - cd ..
  - dotnet build
