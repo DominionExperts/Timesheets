@@ -13,8 +13,8 @@ function renderApp() {
 
     render(
         (<BrowserRouter>
-             <Routes />
-         </BrowserRouter>),
+                <Routes />
+            </BrowserRouter>),
         document.getElementById("react-app")
     );
 }
