@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../resources/Logo.png';
+import logo from '../resources/logo.png';
 
 class NavMenu extends React.Component {
     constructor(props) {

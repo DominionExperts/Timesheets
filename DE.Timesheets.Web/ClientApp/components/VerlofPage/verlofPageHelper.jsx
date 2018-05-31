@@ -2,7 +2,7 @@
 import VerlofApi from "../../api/VerlofApi";
 import UserApi from "../../api/UserApi";
 import * as toastrMessages from "../../constants/toastrConstants";
-import update from 'immutability-helper';
+import update from 'immutability-helper'; 
 
 export default class VerlofPageHelper {
     constructor(context) {
