@@ -26,7 +26,7 @@ const TellerForm = (props) => {
         }];
 
     const tableProps = {
-        keyField: "id",
+        keyField: "typeId",
         data: props.tellers,
         columns: columns
     }

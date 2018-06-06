@@ -10,6 +10,7 @@ class Layout extends React.Component {
 
     render() {
         return (
+            <AppProvider>
                 <div className='container'>
                     <NavMenu />
                     <div className='row paddingLayout'>
@@ -18,7 +19,8 @@ class Layout extends React.Component {
                         </div>
                     </div>
                 </div>
-);
+            </AppProvider>
+        );
     }
 }
 

@@ -2,20 +2,14 @@
 //import AppContext from "./AppContext";
 import PropTypes from "prop-types";
 
-const AppContext = React.createContext();
+export const AppContext = React.createContext();
 
 class AppProvider extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            ajaxCounter: 0
-        };
-    }
-
-    render() {
-        const contextValue = {
-            ajaxCounter: this.state.ajaxCounter,
+            ajaxCounter: 0,
             incrementAjaxCounter: () => {
                 this.setState({
                     ajaxCounter: this.state.ajaxCounter + 1
@@ -27,9 +21,11 @@ class AppProvider extends React.Component {
                 });
             }
         };
+    }
 
+    render() {
         return (
-            <AppContext.Provider value={contextValue}>
+            <AppContext.Provider value={this.state}>
                 {this.props.children}
             </AppContext.Provider>
         );
