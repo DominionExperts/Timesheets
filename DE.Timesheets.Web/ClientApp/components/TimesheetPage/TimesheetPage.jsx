@@ -86,10 +86,9 @@ class TimesheetPage extends AutobindComponent {
             size: 3
         };
 
-        //http://allenfang.github.io/react-bootstrap-table/example.html#remote
         const timesheetProps = {
             timesheet: this.state.timesheet,
-            beforeSaveCell: this.handleOnBeforeSaveCell,
+            beforeSaveCell: this.handleOnBeforeSaveCell
         };
 
         const page = this.state.loadingCount === 0 ?

@@ -110,8 +110,8 @@ const TimesheetForm = (props) => {
 };
 
 TimesheetForm.propTypes = {
-    timesheet: PropTypes.array.isRequired,
-    beforeSafeCell: PropTypes.func.isRequired   
+    timesheet: PropTypes.object.isRequired,
+    beforeSafeCell: PropTypes.func   
 };
 
 export default TimesheetForm;

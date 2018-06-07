@@ -4,6 +4,8 @@ import AutobindComponent from "../AutobindComponent";
 import Dropdown from "../common/Dropdown";
 import Loader from "../common/Loader"
 
+import AppContext from "../AppProvider";
+
 import VerlofPageHelper from "./VerlofPageHelper";
 import HistoriekForm from "./HistoriekForm";
 import TellerForm from "./TellerForm";
@@ -17,7 +19,7 @@ class VerlofPage extends AutobindComponent {
             verlof: {
                 userId: "",
                 historiek: [],
-                tellers: [],
+                tellers: []
             },
             loadingCount: 0,
             selectedUser: ""
@@ -68,7 +70,7 @@ class VerlofPage extends AutobindComponent {
                 <div className="row">
                     <TellerForm {...tellerProps} />
                 </div>
-                <br/>
+                <br />
                 <div className="row">
                     <HistoriekForm {...historiekProps} />
                 </div>
